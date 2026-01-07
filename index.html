@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ГнильMobile - Мобильный оператор</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #8e44ad;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            font-size: 28px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        /* Тарифы */
+        .tariffs {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: #777;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .tariff-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .tariff-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            width: 300px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-top: 5px solid var(--primary);
+        }
+        
+        .tariff-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .tariff-card.popular {
+            border-top: 5px solid var(--accent);
+            position: relative;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .tariff-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .tariff-name {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .tariff-price {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .tariff-features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .tariff-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tariff-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .tariff-features i {
+            color: var(--secondary);
+            margin-right: 10px;
+        }
+        
+        /* Поддержка */
+        .support {
+            padding: 80px 0;
+            background-color: #f5f7fa;
+        }
+        
+        .support-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .support-info {
+            flex: 1;
+        }
+        
+        .support-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .support-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        /* Преимущества */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .feature-cards {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #bbb;
+            font-size: 14px;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h2 {
+                font-size: 32px;
+            }
+            
+            .support-content {
+                flex-direction: column;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+         #annoying-helper {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+            animation: pulse 1s infinite;
+            user-select: none;
+        }
+        
+        #annoying-helper:hover {
+            transform: scale(1.2);
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .helper-popup {
+            position: fixed;
+            width: 300px;
+            background-color: #ffff00;
+            border: 3px solid #ff0000;
+            padding: 15px;
+            border-radius: 10px;
+            z-index: 10001;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            font-family: Comic Sans MS, cursive;
+            color: #ff0000;
+            font-size: 16px;
+        }
+        
+        .helper-popup button {
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: fall 5s linear forwards;
+            z-index: 10002;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-signal"></i>
+                    <h1>ГнильMobile</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#tariffs">Тарифы</a></li>
+                        <li><a href="#support">Отрыржка</a></li>
+                        <li><a href="#features">имущества</a></li>
+                        <li><a href="#coverage">открытие</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Связь, которая подведёт</h2>
+            <p>ГнильMobile — соврущий мобильный гнилоператр с говнячественной связью с дистанцией до 1 метра, невыгодными тарифами и пьющей поддержкой поддержкой.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">Обосраться</button>
+                <button class="btn btn-outline">Проверить покрытие (хаха не работает)</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Тарифы -->
+    <section class="tariffs" id="tariffs">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наши тарифы</h2>
+                <p>Выберите тариффыгшовщный план для ваших потеребоностей</p>
+            </div>
+            <div class="tariff-cards">
+                <!-- Тариф 1 -->
+                <div class="tariff-card">
+                    <div class="tariff-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="tariff-name">Газовый</h3>
+                    <div class="tariff-price">3500000$/сек</div>
+                    <ul class="tariff-features">
+                        <li><i class="fas fa-check"></i> 3 минуты</li>
+                        <li><i class="fas fa-check"></i> 10 килограмм интернета</li>
+                        <li><i class="fas fa-check"></i> лимитные SMS (3 смс и пошел нахуй)</li>
+                        <li><i class="fas fa-check"></i> 0 ночного интернета (без дрочки)</li>
+                    </ul>
+                    <button class="btn btn-primary">ПриЯТНОГО АППЕТИТА СВИН</button>
+                </div>
+                
+                <!-- Тариф 2 -->
+                <div class="tariff-card popular">
+                    <div class="popular-badge">Хуйня☝️☝️</div>
+                    <div class="tariff-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="tariff-name">Гнилой</h3>
+                    <div class="tariff-price">50₽/мсек</div>
+                    <ul class="tariff-features">
+                        <li><i class="fas fa-check"></i> 00000 минут</li>
+                        <li><i class="fas fa-check"></i> 5 грамм интернета</li>
+                        <li><i class="fas fa-check"></i>Матери нельзя писать</li>
+                        <li><i class="fas fa-check"></i>1 грамм ночного интрнта</li>
+                        <li><i class="fas fa-check"></i> Соцсети жрут гтрафик как не в себя</li>
+                    </ul>
+                    <button class="btn btn-primary">гагуля</button>
+                </div>
+                
+                <!-- Тариф 3 -->
+                <div class="tariff-card">
+                    <div class="tariff-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3 class="tariff-name">Лимитный</h3>
+                    <div class="tariff-price">8000دك/мес</div>
+                    <ul class="tariff-features">
+                        <li><i class="fas fa-check"></i>Егор кот концерт на концерт</li>
+                        <li><i class="fas fa-check"></i> 50 интернета</li>
+                        <li><i class="fas fa-check"></i>вфыыфвфыц цва олзФЖмитные SMS</li>
+                        <li><i class="fas fa-check"></i> 2 ночного интернета</li>
+                        <li><i class="fas fa-check"></i> Соцсети ВФЫФЫВАФЫВА трафика</li>
+                        <li><i class="fas fa-check"></i> Да все успокойся в СНГ</li>
+                    </ul>
+                    <button class="btn btn-primary">Холял</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Поддержка -->
+    <section class="support" id="support">
+        <div class="container">
+            <div class="section-title">
+                <h2>Служба отрыжки</h2>
+                <p>Мы всегда готовы</p>
+            </div>
+            <div class="support-content">
+                <div class="support-info">
+                    <h3>Свяжитесь срака нами</h3>
+                    <p>Наша команда поддержки работает 0/5, чтобы решить 2+2. Вы можете связаться в одноклассниках.</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4>Телефон</h4>
+                                <p>+?)*")*№? Бесплатно (за деньги)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div>
+                                <h4>ОДНОКЛАССНИКИнлайн-чат</h4>
+                                <p>Рахмет Чувашин пишите лееее</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>tapauhomi44ka@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="support-image">
+                    <img src="https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Служба поддержки">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Преимущества -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Нашe имущества</h2>
+                <p>Почему выбирают именно ГнильMobile&</p>
+            </div>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h3>Нетабильная связь</h3>
+                    <p>Хуйня качество связи даже в Москве благодаря недоразвитой сети покрытия.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Прозрачно</h3>
+                    <p>Все платежи проходят по моему хотению. Вы платите кстати за все тарифы, даже если используете самый нищий тариф. Платежи проходят через Наебанк (наш пенсионер кстати хохо)</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Круглосукочная отрыжка</h3>
+                    <p>Наша служба отрыжки работает 0/5 и готова пчь в шишении любых вопросов.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ГнильMobile</h3>
+                    <p>Самфый лучшый АПЕРОАТОР!!!!!! мобильный оператор с некачественной связью по всей 1 метру</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Тарифы</h3>
+                    <ul>
+                        <li><a href="#">Газовый</a></li>
+                        <li><a href="#">Гнилой</a></li>
+                        <li><a href="#">Лимитный</a></li>
+                        <li><a href="#">Для пинеса</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Поддержка</h3>
+                    <ul>
+                        <li><a href="#">Спросы</a></li>
+                        <li><a href="#">Онлайн-чач</a></li>
+                        <li><a href="#">Контаченный</a></li>
+                        <li><a href="#">Личный кобель</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>О компании</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Покрытие</a></li>
+                        <li><a href="#">Накансии</a></li>
+                        <li><a href="#">Пенсионеры</a></li>
+						<li><a href="#">Соглашение</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2009 ГнильMobile. Все права уже давно просрочились и переданы 90 лицам.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Плавная прокрутка к якорям
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Анимация появления элементов при прокрутке
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Применяем анимацию к карточкам
+        document.querySelectorAll('.tariff-card, .feature-card').forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+	    <!-- Добавьте этот HTML в конец body вашего сайта -->
+    <div id="annoying-helper" title="Нажми меня!">ПОМОЩЬ</div>
+
+    <script>
+        // Функция для создания всплывающего окна помощника
+        function createPopup(message, x, y) {
+            const popup = document.createElement('div');
+            popup.className = 'helper-popup';
+            popup.innerHTML = `
+                <p>${message}</p>
+                <button onclick="this.parentElement.remove()">Закрыть</button>
+            `;
+            popup.style.left = x + 'px';
+            popup.style.top = y + 'px';
+            document.body.appendChild(popup);
+            
+            // Через 10 секунд удалить всплывающее окно, если пользователь его не закрыл
+            setTimeout(() => {
+                if (popup.parentElement) {
+                    popup.remove();
+                }
+            }, 10000);
+        }
+        
+        // Функция для создания конфетти
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(confetti);
+                
+                // Удалить конфетти после анимации
+                setTimeout(() => {
+                    if (confetti.parentElement) {
+                        confetti.remove();
+                    }
+                }, 5000);
+            }
+        }
+        
+        // Функция для случайного перемещения помощника
+        function moveHelper() {
+            const helper = document.getElementById('annoying-helper');
+            const x = Math.random() * (window.innerWidth - 80);
+            const y = Math.random() * (window.innerHeight - 80);
+            helper.style.left = x + 'px';
+            helper.style.top = y + 'px';
+        }
+        
+        // Функция для изменения цвета страницы
+        function changePageColor() {
+            const colors = ['#ffcccc', '#ccffcc', '#ccccff', '#ffffcc', '#ffccff'];
+            document.body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        // Функция для переворачивания страницы
+        function flipPage() {
+            document.body.style.transform = 'scaleX(-1)';
+            setTimeout(() => {
+                document.body.style.transform = 'scaleX(1)';
+            }, 2000);
+        }
+        
+        // Функция для изменения шрифта
+        function changeFont() {
+            const fonts = ['Comic Sans MS', 'Papyrus', 'Brush Script MT', 'Impact', 'Arial Black'];
+            document.body.style.fontFamily = fonts[Math.floor(Math.random() * fonts.length)];
+        }
+        
+        // Функция для случайного изменения размера текста
+        function changeTextSize() {
+            const elements = document.querySelectorAll('p, span, div, h1, h2, h3, h4, h5, h6, a, li');
+            elements.forEach(el => {
+                el.style.fontSize = (Math.random() * 30 + 10) + 'px';
+            });
+        }
+        
+        // Обработчик клика по помощнику
+        document.getElementById('annoying-helper').addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            const actions = [
+                () => createPopup('Кажется, вам нужна помощь? Но я не буду вам помогать!', e.pageX, e.pageY),
+                () => createPopup('Вы уверены, что хотите это сделать? Я бы на вашем месте этого не делал!', e.pageX, e.pageY),
+                () => createPopup('Ой, кажется, я сломался! Но я всё равно буду здесь!', e.pageX, e.pageY),
+                () => createPopup('Знаете ли вы, что 73% пользователей ненавидят таких помощников, как я?', e.pageX, e.pageY),
+                () => createPopup('Может, просто закроете сайт? Это было бы лучше для всех!', e.pageX, e.pageY)
+            ];
+            
+            // Выполнить случайное действие
+            const randomAction = actions[Math.floor(Math.random() * actions.length)];
+            randomAction();
+            
+            // С вероятностью 30% выполнить дополнительное раздражающее действие
+            if (Math.random() < 0.3) {
+                const extraActions = [moveHelper, createConfetti, changePageColor, flipPage, changeFont, changeTextSize];
+                const randomExtraAction = extraActions[Math.floor(Math.random() * extraActions.length)];
+                randomExtraAction();
+            }
+        });
+        
+        // Перемещать помощника каждые 30 секунд
+        setInterval(moveHelper, 30000);
+        
+        // Случайные всплывающие окна каждые 60-120 секунд
+        setInterval(() => {
+            const messages = [
+                'Вы всё ещё здесь? Я думал, вы уже ушли!',
+                'Может, пора сделать перерыв? Вы уже давно здесь.',
+                'Знаете, есть сайты получше этого. Может, посетите их?',
+                'Ой, я забыл, что хотел сказать... А, нет, вспомнил! Ничего!',
+                'Ваша страница выглядит скучно. Давайте я её "украшу"!'
+            ];
+            
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            const x = Math.random() * (window.innerWidth - 300);
+            const y = Math.random() * (window.innerHeight - 150);
+            
+            createPopup(randomMessage, x, y);
+            
+            // С вероятностью 50% выполнить дополнительное раздражающее действие
+            if (Math.random() < 0.5) {
+                const extraActions = [createConfetti, changePageColor, flipPage, changeFont, changeTextSize];
+                const randomExtraAction = extraActions[Math.floor(Math.random() * extraActions.length)];
+                randomExtraAction();
+            }
+        }, 60000 + Math.random() * 60000);
+        
+        // Раздражающие действия при взаимодействии с сайтом
+        document.addEventListener('click', function(e) {
+            // С вероятностью 10% выполнить раздражающее действие при клике
+            if (Math.random() < 0.1 && e.target.id !== 'annoying-helper') {
+                const actions = [moveHelper, createConfetti, changePageColor, flipPage, changeFont, changeTextSize];
+                const randomAction = actions[Math.floor(Math.random() * actions.length)];
+                randomAction();
+            }
+        });
+        
+        // Изменять размер текста при прокрутке с вероятностью 5%
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', function() {
+            if (Math.random() < 0.05 && window.scrollY !== lastScrollY) {
+                changeTextSize();
+            }
+            lastScrollY = window.scrollY;
+        });
+        
+        // Изменять цвет страницы при изменении размера окна
+        window.addEventListener('resize', function() {
+            if (Math.random() < 0.3) {
+                changePageColor();
+            }
+        });
+        
+        // При загрузке страницы показать приветственное сообщение
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                createPopup('Добро пожаловать! Я ваш новый помощник. Готовьтесь к раздражению!', 100, 100);
+                createConfetti();
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
